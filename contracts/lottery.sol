@@ -9,7 +9,11 @@ contract Lottery {
     }
 
     function enter() public payable {
-        require(msg.value > 0.01 ether);        
+        require(msg.value > 0.01 ether);
         players.push(msg.sender);
+    }
+
+    function random() private view returns (uint) {
+        return uint(keccak256(block.difficulty, now, players));
     }
 }
